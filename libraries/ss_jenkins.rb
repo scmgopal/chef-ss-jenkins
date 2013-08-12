@@ -135,17 +135,17 @@ CMD
   end
 
   def glassfish_deploy_job(domain, product, url, environment, options = {})
-    base_config_xml.
+    config_xml(node['jenkins']['config']['infrastructure-repo']).
       parameters_definition_property(product_job_parameters).
       shell_builder(glassfish_deploy_command(domain, product, url, environment, options.merge(:locks => ["DEPLOY_LOCK_#{domain}"]))).
-      extended_email_publisher('dse-iris-scm@stocksoftware.com.au')
+      extended_email_publisher(node['jenkins']['config']['admin-email'])
   end
 
   def application_deploy_job(application, environment, options = {})
-    base_config_xml.
+    config_xml(node['jenkins']['config']['infrastructure-repo']).
       parameters_definition_property(product_job_parameters).
       shell_builder(application_deploy_command(application, environment, options.merge(:locks => ["DEPLOY_LOCK_#{application}"]))).
-      extended_email_publisher('dse-iris-scm@stocksoftware.com.au')
+      extended_email_publisher(node['jenkins']['config']['admin-email'])
   end
 
   def database_lock_config
