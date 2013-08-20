@@ -2,7 +2,7 @@ hudson_url = ::Chef::Jenkins.jenkins_server_url(node)
 admin_email = node['jenkins']['config']['admin-email']
 recipient_list = node['jenkins']['config']['admin-email']
 list_id = node['jenkins']['server']['host']
-smtp_host = Chef::Services.lookup(node, 'smtp')['host']
+smtp = Chef::Services.lookup(node, 'smtp')
 
 config_files = {
   'hudson.plugins.ansicolor.AnsiColorBuildWrapper' => {},
@@ -28,7 +28,10 @@ config_files = {
       'admin_email' => admin_email,
       'list_id' => list_id,
       'reply_to_address' => recipient_list,
-      'smtp_host' => smtp_host
+      'smtp_host' => smtp['host'],
+      'smtp_port' => smtp['port'],
+      'smtp_auth_password' => smtp['password'],
+      'smtp_auth_username' => smtp['username']
     },
   'hudson.scm.CVSSCM' => {},
   'hudson.scm.SubversionSCM' => {}
