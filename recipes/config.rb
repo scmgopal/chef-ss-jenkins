@@ -2,7 +2,7 @@ hudson_url = ::Chef::Jenkins.jenkins_server_url(node)
 admin_email = node['jenkins']['config']['admin-email']
 recipient_list = node['jenkins']['config']['admin-email']
 list_id = node['jenkins']['server']['host']
-smtp = Chef::Services.lookup(node, 'smtp')
+smtp = Chef::Services.lookup(node, 'smtp', :environment => node['jenkins']['config']['smtp-service-environment'])
 
 config_files = {
   'hudson.plugins.ansicolor.AnsiColorBuildWrapper' => {},
