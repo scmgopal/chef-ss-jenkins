@@ -37,7 +37,6 @@ plugins =
     'doclinks' => '0.5',
     'tmpcleaner' => '1.1',
     'emma' => '1.29',
-    'cobertura' => '1.9.1',
     'port-allocator' => '1.5',
     'embeddable-build-status' => '1.4',
     'email-ext' => '2.30.2',
