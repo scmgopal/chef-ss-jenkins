@@ -1,4 +1,5 @@
 hudson_url = ::Chef::Jenkins.jenkins_server_url(node)
+hudson_remote_url = node['jenkins']['config']['url'] || hudson_url
 admin_email = node['jenkins']['config']['admin-email']
 recipient_list = node['jenkins']['config']['admin-email']
 list_id = node['jenkins']['server']['host']
@@ -6,7 +7,7 @@ smtp = Chef::Services.lookup(node, 'smtp', :environment => node['jenkins']['conf
 
 config_files = {
   'hudson.plugins.ansicolor.AnsiColorBuildWrapper' => {},
-  'jenkins.model.JenkinsLocationConfiguration' =>  {'hudson_url' => hudson_url, 'admin_email' => admin_email},
+  'jenkins.model.JenkinsLocationConfiguration' =>  {'hudson_url' => hudson_remote_url, 'admin_email' => admin_email},
   'com.cloudbees.jenkins.GitHubPushTrigger' => {},
   'hudson.maven.MavenModuleSet' => {},
   'hudson.model.UpdateCenter' => {},
